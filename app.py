@@ -9,7 +9,7 @@ import plotly.express as px
 import pandas as pd
 
 # Cargar el archivo desde el proyecto
-data = pd.read_csv("/data/large_simulated_equipment_data_with_centrals.csv")
+data = pd.read_csv("data/large_simulated_equipment_data_with_centrals.csv")
 
 # Handling null values and ensuring correct data
 # Manejar valores nulos y asegurar datos correctos
@@ -141,6 +141,5 @@ def update_graphs(step, technician, month, sensor_type):
 
 # Run the application
 # Ejecutar la aplicación
-if __name__ == '__main__':
-    app.run_server(debug=False)
-
+app = Dash(__name__)
+server = app.server
