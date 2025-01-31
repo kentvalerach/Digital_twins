@@ -144,6 +144,14 @@ def update_graphs(step, technician, month, sensor_type):
 # Run the application
 # Ejecutar la aplicación
 
-app = Dash(__name__)
-server = app.server  #  esto para Gunicorn
+from dash import Dash
+
+app = Dash(__name__, suppress_callback_exceptions=True)
+server = app.server  # Necesario para Gunicorn
+
+import os
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))  # Usa el puerto que asigna Railway
+    app.run_server(debug=False, host="0.0.0.0", port=port)
 
