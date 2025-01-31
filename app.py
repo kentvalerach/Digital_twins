@@ -1,4 +1,4 @@
-import dash
+from dash import Dash
 from dash import dcc, html, Input, Output
 import pandas as pd
 import numpy as np
@@ -141,5 +141,7 @@ def update_graphs(step, technician, month, sensor_type):
 
 # Run the application
 # Ejecutar la aplicación
+
 app = Dash(__name__)
-server = app.server
+server = app.server  #  esto para Gunicorn
+
