@@ -1,0 +1,48 @@
+=== Información general ===
+Número de filas: 25853
+Número de columnas: 9
+
+=== Tipos de datos y columnas ===
+Equipment          object
+Order_ID           object
+Step               object
+Estimated_Time      int64
+Real_Time         float64
+Result             object
+Type               object
+Technician         object
+Month              object
+
+=== Duplicados ===
+Número de duplicados: 0
+
+=== Valores nulos ===
+No hay valores nulos.
+
+=== Estadísticas descriptivas ===
+          Equipment    Order_ID       Step  Estimated_Time     Real_Time Result             Type Technician     Month
+count         25853       25853      25853    25853.000000  25853.000000  25853            25853      25853     25853
+unique           17        3155          9             NaN           NaN      2                6        689        12
+top     Equipment_5  Order_3_57  Packaging             NaN           NaN   Pass  Position Sensor    Michael  November
+freq           2791          18       2897             NaN           NaN  23333             9533        568      2209
+mean            NaN         NaN        NaN       17.505937     18.352456    NaN              NaN        NaN       NaN
+std             NaN         NaN        NaN        7.500952      8.299850    NaN              NaN        NaN       NaN
+min             NaN         NaN        NaN        5.000000      4.010000    NaN              NaN        NaN       NaN
+25%             NaN         NaN        NaN       11.000000     11.340000    NaN              NaN        NaN       NaN
+50%             NaN         NaN        NaN       17.000000     17.990000    NaN              NaN        NaN       NaN
+75%             NaN         NaN        NaN       24.000000     24.680000    NaN              NaN        NaN       NaN
+max             NaN         NaN        NaN       30.000000     38.990000    NaN              NaN        NaN       NaN
+
+=== Valores únicos por columna ===
+Equipment           17
+Order_ID          3155
+Step                 9
+Estimated_Time      26
+Real_Time         3347
+Result               2
+Type                 6
+Technician         689
+Month               12
+
+=== Tamaño del archivo ===
+Tamaño en memoria: 1.78 MB
