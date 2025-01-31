@@ -9,7 +9,7 @@ import plotly.express as px
 import pandas as pd
 
 # Cargar el archivo desde el proyecto
-data = pd.read_csv("C:/Digital_twins/data/large_simulated_equipment_data_with_centrals.csv")
+data = pd.read_csv("/data/large_simulated_equipment_data_with_centrals.csv")
 
 # Handling null values and ensuring correct data
 # Manejar valores nulos y asegurar datos correctos
