@@ -1,39 +1,28 @@
-from dash import Dash
-from dash import dcc, html, Input, Output
+from dash import Dash, dcc, html, Input, Output
 import pandas as pd
 import numpy as np
 import plotly.express as px
+import os
 
-# Load simulated data
-# Cargar los datos simulados
-import pandas as pd
-
-# Cargar el archivo desde el proyecto
+# 📌 Cargar los datos simulados
 data = pd.read_csv("data/large_simulated_equipment_data_with_centrals.csv")
 
-# Handling null values and ensuring correct data
-# Manejar valores nulos y asegurar datos correctos
-data.fillna("Unknown", inplace=True)  # Reemplazar valores nulos con "Unknown"
+# 📌 Manejar valores nulos y asegurar datos correctos
+data.fillna("Unknown", inplace=True)
 data['Production_Variance'] = data.groupby('Month')['Equipment'].transform(lambda x: x.nunique() * (0.8 + 0.4 * np.random.rand()))
 
-# Convert key columns to string to avoid NoneType errors
-# Convertir columnas clave a string para evitar errores de NoneType
+# 📌 Convertir columnas clave a string para evitar errores de NoneType
 data[['Step', 'Technician', 'Month', 'Type', 'Result']] = data[['Step', 'Technician', 'Month', 'Type', 'Result']].astype(str)
 
-# Initializing the Dash application
-# Inicializar la aplicación Dash
+# 📌 Inicializar la aplicación Dash
 app = Dash(__name__, suppress_callback_exceptions=True)
-server = app.server  # Para Gunicorn en Railway
+server = app.server  # Necesario para Gunicorn en Railway
 
-
-
-# Layout del Dashboard
-# Layout del Dashboard
+# 📌 Layout del Dashboard
 app.layout = html.Div([
     html.H1("Digital Twin: Aeronautical Sensor Manufacturing", style={'textAlign': 'center'}),
 
-    # Interactive filters
-    # Filtros interactivos
+    # 🔹 Filtros interactivos
     html.Div([
         html.Label("Select Step: "),
         dcc.Dropdown(
@@ -68,15 +57,13 @@ app.layout = html.Div([
         ),
     ], style={'width': '40%', 'display': 'inline-block', 'padding': '10px'}),
 
-    # Graphics 
-    # Gráficos
+    # 🔹 Gráficos
     dcc.Graph(id='time-comparison-graph'),
     dcc.Graph(id='result-distribution-graph'),
     dcc.Graph(id='monthly-production-graph')
 ])
 
-# Callbacks to update graphics
-# Callbacks para actualizar los gráficos
+# 📌 Callbacks para actualizar los gráficos
 @app.callback(
     Output('time-comparison-graph', 'figure'),
     Output('result-distribution-graph', 'figure'),
@@ -89,8 +76,7 @@ app.layout = html.Div([
 def update_graphs(step, technician, month, sensor_type):
     filtered_data = data.copy()
     
-    # Apply filters
-    # Aplicar filtros
+    # 🔹 Aplicar filtros
     if step != 'All':
         filtered_data = filtered_data[filtered_data["Step"] == step]
     if technician != 'All':
@@ -100,8 +86,7 @@ def update_graphs(step, technician, month, sensor_type):
     if sensor_type != 'All':
         filtered_data = filtered_data[filtered_data["Type"] == sensor_type]
     
-    # Validate if data is available
-    # Validar si hay datos disponibles
+    # 🔹 Validar si hay datos disponibles
     if filtered_data.empty:
         return (
             px.bar(x=["No Data"], y=[0], title="No data available"),
@@ -109,8 +94,7 @@ def update_graphs(step, technician, month, sensor_type):
             px.bar(x=["No Data"], y=[0], title="No data available")
         )
     
-    # Chart 1: Comparison of estimated vs. actual times in bars
-    # Gráfico 1: Comparación de tiempos estimados vs reales en barras
+    # 🔹 Gráfico 1: Comparación de tiempos estimados vs reales
     fig1 = px.bar(
         filtered_data, x="Step", y=["Estimated_Time", "Real_Time"],
         barmode="group", title="Real vs Estimated Time by Step",
@@ -118,8 +102,7 @@ def update_graphs(step, technician, month, sensor_type):
         color_discrete_map={"Estimated_Time": "#1F77B4", "Real_Time": "#FF7F0E"}
     )
     
-    # Graph 2: Distribution of results (Pass vs Fail)
-    # Gráfico 2: Distribución de resultados (Pass vs Fail)
+    # 🔹 Gráfico 2: Distribución de resultados (Pass vs Fail)
     fig2 = px.histogram(
         filtered_data, 
         x="Result", 
@@ -128,10 +111,7 @@ def update_graphs(step, technician, month, sensor_type):
         color_discrete_map={"Pass": "green", "Fail": "red"}  # Asigna colores específicos
     )
 
-    
-    
-    # Chart 3: Production by month with variation
-    # Gráfico 3: Producción por mes con variación
+    # 🔹 Gráfico 3: Producción por mes con variación
     monthly_data = filtered_data.groupby("Month")["Production_Variance"].sum().reset_index()
     fig3 = px.bar(
         monthly_data, x="Month", y="Production_Variance", 
@@ -141,16 +121,7 @@ def update_graphs(step, technician, month, sensor_type):
 
     return fig1, fig2, fig3
 
-# Run the application
-# Ejecutar la aplicación
-
-from dash import Dash
-
-app = Dash(__name__, suppress_callback_exceptions=True)
-server = app.server  # Necesario para Gunicorn
-
-import os
-
+# 📌 Ejecutar la aplicación en Railway
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))  # Usa el puerto que asigna Railway
     app.run_server(debug=False, host="0.0.0.0", port=port)
