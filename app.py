@@ -22,7 +22,9 @@ data[['Step', 'Technician', 'Month', 'Type', 'Result']] = data[['Step', 'Technic
 
 # Initializing the Dash application
 # Inicializar la aplicación Dash
-app = dash.Dash(__name__, suppress_callback_exceptions=True)
+app = Dash(__name__, suppress_callback_exceptions=True)
+server = app.server  # Para Gunicorn en Railway
+
 
 
 # Layout del Dashboard
