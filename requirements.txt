@@ -22,7 +22,7 @@ colorama==0.4.6
 comm==0.2.2
 contourpy==1.2.1
 cycler==0.12.1
-dash==2.18.2
+dash==2.14.2  # Última versión estable
 dash-bootstrap-components==1.6.0
 dash-core-components==2.0.0
 dash-html-components==2.0.0
