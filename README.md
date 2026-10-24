@@ -3,7 +3,7 @@
 ## 📌 Project Overview
 This project implements a **Digital Twin** dashboard for **aeronautical sensor manufacturing** using **Dash (Plotly)**. The system simulates and visualizes manufacturing data, providing insights into production efficiency, defect detection, and sensor calibration processes.
 
-**🔗 Visualize the dashboard at:** [https://digitaltwins-production.up.railway.app/](https://digitaltwins-production.up.railway.app/) 🚀
+**🔗 Visualize the dashboard at:** ([https://digitaltwins.up.railway.app/](https://digitaltwins.up.railway.app/)) 🚀
 
 
 ### ✅ Features:
